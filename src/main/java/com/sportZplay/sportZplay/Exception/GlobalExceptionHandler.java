@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorMessage> handleRuntimeException(Exception ex){
         ex.printStackTrace();
         LOGGER.error("handleRuntimeException - {}",ex);
-        ErrorHandle error = ErrorCode.ERR_AP_2000;
+        ErrorHandle error = ErrorCode.ERR_SZP_2000;
         ErrorMessage errorMessage = new ErrorMessage();
         errorMessage.setErrorCode(error.getErrorCode());
         errorMessage.setMessage(error.getMessage());
@@ -60,7 +60,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorMessage> handleException(Exception ex){
         ex.printStackTrace();
         LOGGER.error("handleException - {}",ex);
-        ErrorHandle error = ErrorCode.ERR_AP_2000;
+        ErrorHandle error = ErrorCode.ERR_SZP_2000;
         ErrorMessage errorMessage = new ErrorMessage();
         errorMessage.setErrorCode(error.getErrorCode());
         errorMessage.setMessage(error.getMessage());
@@ -77,7 +77,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorMessage> handleAccessDeniedException(Exception ex){
         ex.printStackTrace();
         LOGGER.error("handleAccessDeniedException - {}",ex);
-        ErrorHandle error = ErrorCode.ERR_AP_2001;
+        ErrorHandle error = ErrorCode.ERR_SZP_2001;
         ErrorMessage errorMessage = new ErrorMessage();
         errorMessage.setErrorCode(error.getErrorCode());
         errorMessage.setMessage(error.getMessage());

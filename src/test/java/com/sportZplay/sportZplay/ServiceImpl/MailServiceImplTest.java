@@ -88,7 +88,7 @@ class MailServiceImplTest {
     void testSendOtpForVerification2() throws MailException {
         // Arrange
         doNothing().when(asyncService).saveOtpVerification(Mockito.<String>any(), Mockito.<Integer>any());
-        doThrow(new CustomValidationException(ErrorCode.ERR_AP_2000)).when(javaMailSender)
+        doThrow(new CustomValidationException(ErrorCode.ERR_SZP_2000)).when(javaMailSender)
                 .send(Mockito.<SimpleMailMessage>any());
 
         // Act
@@ -163,7 +163,7 @@ class MailServiceImplTest {
     void testVerifyOtp3() {
         // Arrange
         when(userRepository.getUserByEmailIdDeletedFlagFalse(Mockito.<String>any()))
-                .thenThrow(new CustomValidationException(ErrorCode.ERR_AP_2000));
+                .thenThrow(new CustomValidationException(ErrorCode.ERR_SZP_2000));
         VerificationDTO verificationDTO = VerificationDTO.builder().mail("Mail").otp(1).phoneNumber("6625550144").build();
 
         // Act and Assert
@@ -212,7 +212,7 @@ class MailServiceImplTest {
     void testVerifyOtp5() {
         // Arrange
         when(userRepository.getUserByPhoneNumberDeletedFlagFalse(Mockito.<String>any()))
-                .thenThrow(new CustomValidationException(ErrorCode.ERR_AP_2000));
+                .thenThrow(new CustomValidationException(ErrorCode.ERR_SZP_2000));
         VerificationDTO.VerificationDTOBuilder verificationDTOBuilder = mock(VerificationDTO.VerificationDTOBuilder.class);
         when(verificationDTOBuilder.mail(Mockito.<String>any())).thenReturn(VerificationDTO.builder());
         VerificationDTO verificationDTO = verificationDTOBuilder.mail("Mail").otp(1).phoneNumber("6625550144").build();
@@ -260,7 +260,7 @@ class MailServiceImplTest {
     void testValidationOtp2() {
         // Arrange
         when(userRepository.getUserByPhoneNumberDeletedFlagFalse(Mockito.<String>any()))
-                .thenThrow(new CustomValidationException(ErrorCode.ERR_AP_2000));
+                .thenThrow(new CustomValidationException(ErrorCode.ERR_SZP_2000));
 
         // Act and Assert
         assertThrows(CustomValidationException.class, () -> mailServiceImpl.validationOtp(new VerificationDTO()));

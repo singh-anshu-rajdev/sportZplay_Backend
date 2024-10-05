@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
         if(null!=userRegistrationDTO.getImageId()){
             File file = fileRepository.findByUniqueIdAndDeletedFlagFalse(userRegistrationDTO.getImageId());
             if(null==file || !file.getFileType().contains(SZP_Constants.IMAGE)){
-                throw new CustomValidationException(ErrorCode.ERR_AP_2011);
+                throw new CustomValidationException(ErrorCode.ERR_SZP_2011);
             }
         }
 
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
         DataValidatingRequestDTO dataValidatingNumber = DataValidatingRequestDTO.builder()
                 .emailId(userRegistrationDTO.getPhoneNumber()).build();
         if(checkExistingData(dataValidatingEmail).getIsExisting() || checkExistingData(dataValidatingNumber).getIsExisting()){
-            throw new CustomValidationException(ErrorCode.ERR_AP_2014);
+            throw new CustomValidationException(ErrorCode.ERR_SZP_2014);
         }
         try{
             User user = new User();
@@ -126,8 +126,17 @@ public class UserServiceImpl implements UserService {
                     .refreshToken(jwtService.generateRefreshToken(loginRequestDTO.getUserId()))
                     .userName(loginRequestDTO.getUserId())
                     .build();
+
+        }catch(CustomValidationException ex){
+            throw new CustomValidationException(ex.getErrorCode());
         }catch (Exception ex){
-            throw new CustomValidationException(ErrorCode.ERR_AP_2012);
+            if(ex.getMessage().equals(ErrorCode.ERR_SZP_2015.getMessage())){
+                throw new CustomValidationException(ErrorCode.ERR_SZP_2015);
+            }else if(ex.getMessage().equals(ErrorCode.ERR_SZP_2016.getMessage())){
+                throw new CustomValidationException(ErrorCode.ERR_SZP_2016);
+            }else{
+                throw new CustomValidationException(ErrorCode.ERR_SZP_2012); // Catching any other exception and throwing a general error
+            }
         }
     }
 
@@ -144,7 +153,7 @@ public class UserServiceImpl implements UserService {
         if (null == dataValidatingRequestDTO ||
                 (null == dataValidatingRequestDTO.getEmailId()
                         && null == dataValidatingRequestDTO.getPhoneNumber())) {
-            throw new CustomValidationException(ErrorCode.ERR_AP_2006);
+            throw new CustomValidationException(ErrorCode.ERR_SZP_2006);
         }
 
         User user = null;
@@ -181,7 +190,7 @@ public class UserServiceImpl implements UserService {
                     .userName(refreshTokenRequestDTO.getUserName())
                     .build();
         }else{
-            throw new CustomValidationException(ErrorCode.ERR_AP_2006);
+            throw new CustomValidationException(ErrorCode.ERR_SZP_2006);
         }
     }
 }

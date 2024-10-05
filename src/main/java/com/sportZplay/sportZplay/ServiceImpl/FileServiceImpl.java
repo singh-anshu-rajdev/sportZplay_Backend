@@ -64,7 +64,7 @@ public class FileServiceImpl implements FileService {
             return newFile.getUniqueId();
         }catch (Exception e){
             logger.error("Error in uploading file - {}",e.getMessage());
-            throw new CustomValidationException(ErrorCode.ERR_AP_2002);
+            throw new CustomValidationException(ErrorCode.ERR_SZP_2002);
         }
 
     }
@@ -78,7 +78,7 @@ public class FileServiceImpl implements FileService {
         try{
             File file = fileRepository.findByUniqueIdAndDeletedFlagFalse(fileId);
             if(null==file){
-                throw new CustomValidationException(ErrorCode.ERR_AP_2004);
+                throw new CustomValidationException(ErrorCode.ERR_SZP_2004);
             }else{
                 ByteArrayResource resource = new ByteArrayResource(file.getFileData());
                 HttpHeaders headers = new HttpHeaders();
@@ -91,10 +91,10 @@ public class FileServiceImpl implements FileService {
             }
         }catch (Exception e){
             logger.error("Error in downloading the file - {}",e.getMessage());
-            if(e.getMessage().equals(ErrorCode.ERR_AP_2004.getMessage())){
-                throw new CustomValidationException(ErrorCode.ERR_AP_2004);
+            if(e.getMessage().equals(ErrorCode.ERR_SZP_2004.getMessage())){
+                throw new CustomValidationException(ErrorCode.ERR_SZP_2004);
             }
-            throw new CustomValidationException(ErrorCode.ERR_AP_2003);
+            throw new CustomValidationException(ErrorCode.ERR_SZP_2003);
         }
     }
 }

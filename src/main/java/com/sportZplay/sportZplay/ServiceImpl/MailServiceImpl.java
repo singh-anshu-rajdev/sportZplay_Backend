@@ -114,9 +114,13 @@ public class MailServiceImpl implements MailService {
                 javaMailSender.send(mailMessage);
                 response.setMessage(SZP_Constants.MAIL_SEND_SUCCESS_MESSAGE);
             }else{
-                throw new CustomValidationException(ErrorCode.ERR_AP_2007);
+                throw new CustomValidationException(ErrorCode.ERR_SZP_2007);
             }
 
+        }catch(CustomValidationException ex){
+            logger.error(LOGGER_MESSAGE_MAIL_FAILURE, ex.getMessage());
+            response.setStatus(SZP_Constants.FALSE);
+            response.setMessage(ex.getMessage());
         }catch (Exception ex){
             logger.error(LOGGER_MESSAGE_MAIL_FAILURE, ex.getMessage());
             response.setStatus(SZP_Constants.FALSE);
@@ -138,7 +142,7 @@ public class MailServiceImpl implements MailService {
         response.setStatus(SZP_Constants.TRUE);
 
         if (null == verificationDTO.getMail() && null == verificationDTO.getPhoneNumber()) {
-            throw new CustomValidationException(ErrorCode.ERR_AP_2006);
+            throw new CustomValidationException(ErrorCode.ERR_SZP_2006);
         }
 
         // fetch the otp from db
@@ -163,7 +167,7 @@ public class MailServiceImpl implements MailService {
             otpVerificationRepository.saveAll(otps);
         } else {
             // otp does not match
-            throw new CustomValidationException(ErrorCode.ERR_AP_2005);
+            throw new CustomValidationException(ErrorCode.ERR_SZP_2005);
         }
         return response;
     }
@@ -181,21 +185,21 @@ public class MailServiceImpl implements MailService {
             // validation for mail
             User user = userRepository.getUserByEmailIdDeletedFlagFalse(verificationDTO.getMail());
             if(null!=user){
-                throw new CustomValidationException(ErrorCode.ERR_AP_2009);
+                throw new CustomValidationException(ErrorCode.ERR_SZP_2009);
             }
             otps = otpVerificationRepository.findByUniqueTypeAndValidTs(verificationDTO.getMail(), LocalDateTime.now());
             if (null == otps || otps.isEmpty()) {
-                throw new CustomValidationException(ErrorCode.ERR_AP_2007); // cannot find otp by mail
+                throw new CustomValidationException(ErrorCode.ERR_SZP_2007); // cannot find otp by mail
             }
         } else {
             // validation for phone number
             User user = userRepository.getUserByPhoneNumberDeletedFlagFalse(verificationDTO.getPhoneNumber());
             if(null!=user){
-                throw new CustomValidationException(ErrorCode.ERR_AP_2010);
+                throw new CustomValidationException(ErrorCode.ERR_SZP_2010);
             }
             otps = otpVerificationRepository.findByUniqueTypeAndValidTs(verificationDTO.getPhoneNumber(), LocalDateTime.now());
             if (null == otps || otps.isEmpty()) {
-                throw new CustomValidationException(ErrorCode.ERR_AP_2008); // cannot find otp by Number
+                throw new CustomValidationException(ErrorCode.ERR_SZP_2008); // cannot find otp by Number
             }
         }
         return otps;

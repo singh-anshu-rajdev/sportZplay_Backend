@@ -68,7 +68,7 @@ class FileServiceImplTest {
     void testGetFileById2() throws UnsupportedEncodingException {
         // Arrange
         File file = mock(File.class);
-        when(file.getFileName()).thenThrow(new CustomValidationException(ErrorCode.ERR_AP_2000));
+        when(file.getFileName()).thenThrow(new CustomValidationException(ErrorCode.ERR_SZP_2000));
         when(file.getFileData()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
         doNothing().when(file).setCreatedBy(Mockito.<String>any());
         doNothing().when(file).setCreatedTs(Mockito.<LocalDateTime>any());
@@ -116,7 +116,7 @@ class FileServiceImplTest {
     void testGetFileById3() throws UnsupportedEncodingException {
         // Arrange
         File file = mock(File.class);
-        when(file.getFileName()).thenThrow(new CustomValidationException(ErrorCode.ERR_AP_2004));
+        when(file.getFileName()).thenThrow(new CustomValidationException(ErrorCode.ERR_SZP_2004));
         when(file.getFileData()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
         doNothing().when(file).setCreatedBy(Mockito.<String>any());
         doNothing().when(file).setCreatedTs(Mockito.<LocalDateTime>any());

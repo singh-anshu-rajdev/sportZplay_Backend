@@ -127,9 +127,9 @@ public class AsyncService {
                 javaMailSender.send(mailMessage);
             }else{
                 if(userType.contains(SZP_Constants.AT_THE_RATE)){
-                    throw new CustomValidationException(ErrorCode.ERR_AP_2007);
+                    throw new CustomValidationException(ErrorCode.ERR_SZP_2007);
                 }else{
-                    throw new CustomValidationException(ErrorCode.ERR_AP_2008);
+                    throw new CustomValidationException(ErrorCode.ERR_SZP_2008);
                 }
             }
         }catch (Exception ex){

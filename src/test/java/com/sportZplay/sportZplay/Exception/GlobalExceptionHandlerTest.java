@@ -20,7 +20,7 @@ class GlobalExceptionHandlerTest {
 
         // Act
         ResponseEntity<ErrorMessage> actualHandleBaseExceptionResult = globalExceptionHandler
-                .handleBaseException(new CustomValidationException(ErrorCode.ERR_AP_2000));
+                .handleBaseException(new CustomValidationException(ErrorCode.ERR_SZP_2000));
 
         // Assert
         HttpStatusCode statusCode = actualHandleBaseExceptionResult.getStatusCode();
