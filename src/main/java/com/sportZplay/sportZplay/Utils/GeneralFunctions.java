@@ -58,7 +58,7 @@ public class GeneralFunctions {
     public String buildRegistrationSuccessContent(String userName) {
         return "Hi " + userName + ",\n\n"
                 + "Congratulations! Your registration was successful.\n"
-                + "Thank you for joining. Enjoy your meal with sportZplay!\n\n"
+                + "Thank you for joining. Enjoy your PlayTime in sportZplay Arena!\n\n"
                 + "You can now log in to your account and explore our services.\n\n"
                 + "Best regards,\n"
                 + "sportZplay";
